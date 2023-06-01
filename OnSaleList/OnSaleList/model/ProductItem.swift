@@ -12,7 +12,7 @@ struct Size {
     let available: Bool
 }
 
-struct Product {
+struct ProductItem {
     let name: String
     let imageURL: URL?
     let price: String
