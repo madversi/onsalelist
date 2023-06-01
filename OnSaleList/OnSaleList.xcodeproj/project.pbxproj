@@ -14,6 +14,7 @@
 		25600C0A2A2924CC00FF87A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25600C092A2924CC00FF87A2 /* Assets.xcassets */; };
 		25600C0D2A2924CC00FF87A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25600C0B2A2924CC00FF87A2 /* LaunchScreen.storyboard */; };
 		25600C182A2924CC00FF87A2 /* OnSaleListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25600C172A2924CC00FF87A2 /* OnSaleListTests.swift */; };
+		25600C322A29255B00FF87A2 /* ProductItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25600C312A29255B00FF87A2 /* ProductItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		25600C132A2924CC00FF87A2 /* OnSaleListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnSaleListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25600C172A2924CC00FF87A2 /* OnSaleListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnSaleListTests.swift; sourceTree = "<group>"; };
 		25600C1D2A2924CC00FF87A2 /* OnSaleListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnSaleListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		25600C312A29255B00FF87A2 /* ProductItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		25600BFF2A2924CB00FF87A2 /* OnSaleList */ = {
 			isa = PBXGroup;
 			children = (
+				25600C302A29251C00FF87A2 /* model */,
 				25600C002A2924CB00FF87A2 /* AppDelegate.swift */,
 				25600C022A2924CB00FF87A2 /* SceneDelegate.swift */,
 				25600C042A2924CB00FF87A2 /* ViewController.swift */,
@@ -111,6 +114,14 @@
 				25600C172A2924CC00FF87A2 /* OnSaleListTests.swift */,
 			);
 			path = OnSaleListTests;
+			sourceTree = "<group>";
+		};
+		25600C302A29251C00FF87A2 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				25600C312A29255B00FF87A2 /* ProductItem.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,6 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25600C322A29255B00FF87A2 /* ProductItem.swift in Sources */,
 				25600C052A2924CB00FF87A2 /* ViewController.swift in Sources */,
 				25600C012A2924CB00FF87A2 /* AppDelegate.swift in Sources */,
 				25600C032A2924CB00FF87A2 /* SceneDelegate.swift in Sources */,
