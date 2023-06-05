@@ -74,12 +74,12 @@ class RemoteProductsLoaderTests: XCTestCase {
     }
     
     private func expect(_ sut: RemoteProductsLoader, toCompleteWithError error: RemoteProductsLoader.Error, when action: () -> Void) {
-        var capturedErrors = [RemoteProductsLoader.Error]()
-        sut.load { capturedErrors.append($0)}
+        var capturedResults = [RemoteProductsLoader.Result]()
+        sut.load { capturedResults.append($0)}
         
         action()
         
-        XCTAssertEqual(capturedErrors, [error])
+        XCTAssertEqual(capturedResults, [.failure(error)])
     }
     
     private class HTTPClientSpy: HTTPClient {

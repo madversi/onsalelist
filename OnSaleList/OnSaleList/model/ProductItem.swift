@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Size {
+struct Size: Equatable {
     let size: String
     let available: Bool
 }
 
-struct ProductItem {
+public struct ProductItem: Equatable {
     let name: String
     let imageURL: URL?
     let price: String
