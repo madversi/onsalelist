@@ -38,13 +38,11 @@ class RemoteProductsLoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
         
-        var capturedErrors = [RemoteProductsLoader.Error]()
-        sut.load { capturedErrors.append($0)}
+        expect(sut, toCompleteWithError: .connectivity) {
+            let clientError = NSError(domain: "Test", code: 0)
+            client.complete(with: clientError)
+        }
         
-        let clientError = NSError(domain: "Test", code: 0)
-        client.complete(with: clientError)
-        
-        XCTAssertEqual(capturedErrors, [.connectivity])
     }
     
     func test_load_deliversErrorOnNon200HTTPResponse() {
@@ -52,25 +50,19 @@ class RemoteProductsLoaderTests: XCTestCase {
         let samples = [199, 201, 300, 400, 500].enumerated()
         
         samples.forEach { index, code in
-            var capturedErrors = [RemoteProductsLoader.Error]()
-            sut.load { capturedErrors.append($0)}
-            
-            client.complete(withStatusCode: code, at: index)
-            
-            XCTAssertEqual(capturedErrors, [.invalidData])
+            expect(sut, toCompleteWithError: .invalidData) {
+                client.complete(withStatusCode: code, at: index)
+            }
         }
     }
     
     func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
         let (sut, client) = makeSUT()
         
-        var capturedErrors = [RemoteProductsLoader.Error]()
-        sut.load { capturedErrors.append($0)}
-        
-        let invalidJSON = Data("invalid json".utf8)
-        client.complete(withStatusCode: 200, data: invalidJSON)
-        
-        XCTAssertEqual(capturedErrors, [.invalidData])
+        expect(sut, toCompleteWithError: .invalidData) {
+            let invalidJSON = Data("invalid json".utf8)
+            client.complete(withStatusCode: 200, data: invalidJSON)
+        }
     }
     
     // MARK: - Helpers
@@ -79,6 +71,15 @@ class RemoteProductsLoaderTests: XCTestCase {
         let client = HTTPClientSpy()
         let sut = RemoteProductsLoader(url: url, client: client)
         return (sut, client)
+    }
+    
+    private func expect(_ sut: RemoteProductsLoader, toCompleteWithError error: RemoteProductsLoader.Error, when action: () -> Void) {
+        var capturedErrors = [RemoteProductsLoader.Error]()
+        sut.load { capturedErrors.append($0)}
+        
+        action()
+        
+        XCTAssertEqual(capturedErrors, [error])
     }
     
     private class HTTPClientSpy: HTTPClient {
