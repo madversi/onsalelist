@@ -65,13 +65,86 @@ class RemoteProductsLoaderTests: XCTestCase {
         }
     }
     
-    func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() {
+    func test_load_deliversNoProductsOn200HTTPResponseWithEmptyJSONList() {
         let (sut, client) = makeSUT()
         
         expect(sut, toCompleteWithResult: .success([])) {
             let emptyListJSON = Data("{\"products\": []}".utf8) // this creates a valid response with no items
             client.complete(withStatusCode: 200, data: emptyListJSON)
         }
+    }
+    
+    func test_load_deliversProductsOn200HTTPResponseNotEmpty() {
+        let (sut, client) = makeSUT()
+        
+        let size1 = Size(size: "P", available: true)
+        let size2 = Size(size: "M", available: true)
+        let size3 = Size(size: "G", available: false)
+        
+        let sizes = [size1, size2, size3]
+        
+        let size1JSON: [String: Any] = [
+            "size": size1.size,
+            "available": size1.available
+        ]
+        
+        let size2JSON: [String: Any] = [
+            "size": size2.size,
+            "available": size2.available
+        ]
+        
+        let size3JSON: [String: Any] = [
+            "size": size3.size,
+            "available": size3.available
+        ]
+        
+        let sizesJSON = [size1JSON, size2JSON, size3JSON]
+        
+        let product1 = ProductItem(
+            name: "product1",
+            imageURL: nil,
+            price: "0",
+            onSale: false,
+            salePrice: "0",
+            sizes: sizes
+        )
+        
+        let product1JSON: [String: Any] = [
+            "name": product1.name,
+            "image": product1.imageURL?.absoluteString,
+            "regular_price": product1.price,
+            "on_sale": product1.onSale,
+            "actual_price": product1.salePrice,
+            "sizes": sizesJSON
+        ]
+        
+        let product2 = ProductItem(
+            name: "product2",
+            imageURL: URL(string: "http://imageurl.com"),
+            price: "2",
+            onSale: true,
+            salePrice: "1",
+            sizes: sizes
+        )
+        
+        let product2JSON: [String: Any] = [
+            "name": product2.name,
+            "image": product2.imageURL?.absoluteString,
+            "regular_price": product2.price,
+            "on_sale": product2.onSale,
+            "actual_price": product2.salePrice,
+            "sizes": sizesJSON
+        ]
+        
+        let productsJSON = [
+            "products": [product1JSON, product2JSON]
+        ]
+        
+        expect(sut, toCompleteWithResult: .success([product1, product2])) {
+            let json = try! JSONSerialization.data(withJSONObject: productsJSON)
+            client.complete(withStatusCode: 200, data: json)
+        }
+        
     }
     
     // MARK: - Helpers
@@ -82,13 +155,13 @@ class RemoteProductsLoaderTests: XCTestCase {
         return (sut, client)
     }
     
-    private func expect(_ sut: RemoteProductsLoader, toCompleteWithResult result: RemoteProductsLoader.Result, when action: () -> Void) {
+    private func expect(_ sut: RemoteProductsLoader, toCompleteWithResult result: RemoteProductsLoader.Result, file: StaticString = #file, line: UInt = #line, when action: () -> Void) {
         var capturedResults = [RemoteProductsLoader.Result]()
         sut.load { capturedResults.append($0)}
         
         action()
         
-        XCTAssertEqual(capturedResults, [result])
+        XCTAssertEqual(capturedResults, [result], file: file, line: line)
     }
     
     private class HTTPClientSpy: HTTPClient {
