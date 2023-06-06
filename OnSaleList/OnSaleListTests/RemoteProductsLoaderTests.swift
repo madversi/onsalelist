@@ -102,7 +102,7 @@ class RemoteProductsLoaderTests: XCTestCase {
         
         let product1 = ProductItem(
             name: "product1",
-            imageURL: nil,
+            imageURL: URL(string: "http://imageurl.com"),
             price: "0",
             onSale: false,
             salePrice: "0",
@@ -111,7 +111,7 @@ class RemoteProductsLoaderTests: XCTestCase {
         
         let product1JSON: [String: Any] = [
             "name": product1.name,
-            "image": product1.imageURL?.absoluteString,
+            "image": product1.imageURL!.absoluteString,
             "regular_price": product1.price,
             "on_sale": product1.onSale,
             "actual_price": product1.salePrice,
@@ -120,7 +120,7 @@ class RemoteProductsLoaderTests: XCTestCase {
         
         let product2 = ProductItem(
             name: "product2",
-            imageURL: URL(string: "http://imageurl.com"),
+            imageURL: URL(string: "http://another-imageurl.com"),
             price: "2",
             onSale: true,
             salePrice: "1",
@@ -129,7 +129,7 @@ class RemoteProductsLoaderTests: XCTestCase {
         
         let product2JSON: [String: Any] = [
             "name": product2.name,
-            "image": product2.imageURL?.absoluteString,
+            "image": product2.imageURL!.absoluteString,
             "regular_price": product2.price,
             "on_sale": product2.onSale,
             "actual_price": product2.salePrice,
@@ -182,7 +182,7 @@ class RemoteProductsLoaderTests: XCTestCase {
         func complete(withStatusCode code: Int, data: Data = Data(), at index: Int = 0) {
             let response = HTTPURLResponse(
                 url: requestedURLs[index],
-                statusCode: 400,
+                statusCode: code,
                 httpVersion: nil,
                 headerFields: nil
             )!
