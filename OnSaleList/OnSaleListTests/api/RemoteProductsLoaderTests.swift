@@ -38,7 +38,7 @@ class RemoteProductsLoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleteWith: .failure(RemoteProductsLoader.Error.connectivity)) {
+        expect(sut, toCompleteWith: failure(.connectivity)) {
             let clientError = NSError(domain: "Test", code: 0)
             client.complete(with: clientError)
         }
@@ -50,7 +50,7 @@ class RemoteProductsLoaderTests: XCTestCase {
         let samples = [199, 201, 300, 400, 500].enumerated()
         
         samples.forEach { index, code in
-            expect(sut, toCompleteWith: .failure(RemoteProductsLoader.Error.invalidData)) {
+            expect(sut, toCompleteWith: failure(.invalidData)) {
                 let validJSON = makeProductsData([])
                 client.complete(withStatusCode: code, data: validJSON, at: index)
             }
@@ -60,7 +60,7 @@ class RemoteProductsLoaderTests: XCTestCase {
     func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleteWith: .failure(RemoteProductsLoader.Error.invalidData)) {
+        expect(sut, toCompleteWith: failure(.invalidData)) {
             let invalidJSON = Data("invalid json".utf8)
             client.complete(withStatusCode: 200, data: invalidJSON)
         }
@@ -133,6 +133,10 @@ class RemoteProductsLoaderTests: XCTestCase {
         addTeardownBlock { [weak instance] in
             XCTAssertNil(instance, "Should've been deallocated. This can be a memory leak.", file: file, line: line)
         }
+    }
+    
+    private func failure(_ error: RemoteProductsLoader.Error) -> RemoteProductsLoader.Result {
+        return .failure(error)
     }
     
     private func expect(_ sut: RemoteProductsLoader, toCompleteWith expectedResult: RemoteProductsLoader.Result, file: StaticString = #filePath, line: UInt = #line, when action: () -> Void) {
