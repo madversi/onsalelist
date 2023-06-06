@@ -107,10 +107,18 @@ class RemoteProductsLoaderTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(url: URL = URL(string: "http://a-given-url.com")!) -> (sut: RemoteProductsLoader, client: HTTPClientSpy) {
+    private func makeSUT(url: URL = URL(string: "http://a-given-url.com")!, file: StaticString = #filePath, line: UInt = #line) -> (sut: RemoteProductsLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemoteProductsLoader(url: url, client: client)
+        checkForMemoryLeaks(sut, file: file, line: line)
+        checkForMemoryLeaks(client, file: file, line: line)
         return (sut, client)
+    }
+    
+    private func checkForMemoryLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "Should've been deallocated. This can be a memory leak.", file: file, line: line)
+        }
     }
     
     private func expect(_ sut: RemoteProductsLoader, toCompleteWithResult result: RemoteProductsLoader.Result, file: StaticString = #filePath, line: UInt = #line, when action: () -> Void) {
