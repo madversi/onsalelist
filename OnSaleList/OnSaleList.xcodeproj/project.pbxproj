@@ -104,7 +104,7 @@
 		25600C162A2924CC00FF87A2 /* OnSaleListTests */ = {
 			isa = PBXGroup;
 			children = (
-				25600C352A2927F100FF87A2 /* RemoteProductsLoaderTests.swift */,
+				25AC05EC2A2EF65F00A5F946 /* api */,
 			);
 			path = OnSaleListTests;
 			sourceTree = "<group>";
@@ -124,6 +124,14 @@
 				25600C382A29341600FF87A2 /* RemoteProductsLoader.swift */,
 				2510685E2A2EEC320037029C /* HTTPClient.swift */,
 				251068602A2EEC990037029C /* ProductItemsMapper.swift */,
+			);
+			path = api;
+			sourceTree = "<group>";
+		};
+		25AC05EC2A2EF65F00A5F946 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				25600C352A2927F100FF87A2 /* RemoteProductsLoaderTests.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
