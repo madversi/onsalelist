@@ -55,7 +55,7 @@ final class ProductItemsMapper {
     static func map(_ data: Data, _ response: HTTPURLResponse) ->  RemoteProductsLoader.Result{
         guard response.statusCode == 200,
               let root = try? JSONDecoder().decode(Root.self, from: data) else {
-            return .failure(.invalidData)
+            return .failure(RemoteProductsLoader.Error.invalidData)
         }
 
         return .success(root.productsList)

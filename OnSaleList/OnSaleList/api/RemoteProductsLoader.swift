@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class RemoteProductsLoader {
+public final class RemoteProductsLoader: ProductsLoader {
     private let url: URL
     private let client: HTTPClient
     
@@ -16,10 +16,7 @@ public final class RemoteProductsLoader {
         case invalidData
     }
     
-    public enum Result: Equatable {
-        case success([ProductItem])
-        case failure(Error)
-    }
+    public typealias Result = LoadProductsResult
     
     public init(url: URL, client: HTTPClient) {
         self.url = url
@@ -33,7 +30,7 @@ public final class RemoteProductsLoader {
             case let .success(data, response):
                 completion(ProductItemsMapper.map(data, response))
             case .failure:
-                completion(.failure(.connectivity))
+                completion(.failure(Error.connectivity))
             }
         }
     }

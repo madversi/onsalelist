@@ -38,7 +38,7 @@ class RemoteProductsLoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleteWithResult: .failure(.connectivity)) {
+        expect(sut, toCompleteWith: .failure(RemoteProductsLoader.Error.connectivity)) {
             let clientError = NSError(domain: "Test", code: 0)
             client.complete(with: clientError)
         }
@@ -50,7 +50,7 @@ class RemoteProductsLoaderTests: XCTestCase {
         let samples = [199, 201, 300, 400, 500].enumerated()
         
         samples.forEach { index, code in
-            expect(sut, toCompleteWithResult: .failure(.invalidData)) {
+            expect(sut, toCompleteWith: .failure(RemoteProductsLoader.Error.invalidData)) {
                 let validJSON = makeProductsData([])
                 client.complete(withStatusCode: code, data: validJSON, at: index)
             }
@@ -60,7 +60,7 @@ class RemoteProductsLoaderTests: XCTestCase {
     func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleteWithResult: .failure(.invalidData)) {
+        expect(sut, toCompleteWith: .failure(RemoteProductsLoader.Error.invalidData)) {
             let invalidJSON = Data("invalid json".utf8)
             client.complete(withStatusCode: 200, data: invalidJSON)
         }
@@ -69,7 +69,7 @@ class RemoteProductsLoaderTests: XCTestCase {
     func test_load_deliversNoProductsOn200HTTPResponseWithEmptyJSONList() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleteWithResult: .success([])) {
+        expect(sut, toCompleteWith: .success([])) {
             let emptyListJSON = Data("{\"products\": []}".utf8) // this creates a valid response with no items
             client.complete(withStatusCode: 200, data: emptyListJSON)
         }
@@ -98,7 +98,7 @@ class RemoteProductsLoaderTests: XCTestCase {
             sizes: sizesList
         )
         
-        expect(sut, toCompleteWithResult: .success([product1.model, product2.model])) {
+        expect(sut, toCompleteWith: .success([product1.model, product2.model])) {
             let json = makeProductsData([product1.json, product2.json])
             client.complete(withStatusCode: 200, data: json)
         }
@@ -135,13 +135,23 @@ class RemoteProductsLoaderTests: XCTestCase {
         }
     }
     
-    private func expect(_ sut: RemoteProductsLoader, toCompleteWithResult result: RemoteProductsLoader.Result, file: StaticString = #filePath, line: UInt = #line, when action: () -> Void) {
-        var capturedResults = [RemoteProductsLoader.Result]()
-        sut.load { capturedResults.append($0)}
+    private func expect(_ sut: RemoteProductsLoader, toCompleteWith expectedResult: RemoteProductsLoader.Result, file: StaticString = #filePath, line: UInt = #line, when action: () -> Void) {
+        let loadExpectation = expectation(description: "Wait for load to finish")
+        sut.load { receivedResult in
+            switch (receivedResult, expectedResult) {
+            case let (.success(receivedProducts), .success(expectedProducts)):
+                XCTAssertEqual(receivedProducts, expectedProducts, file: file, line: line)
+            case let (.failure(receivedError as RemoteProductsLoader.Error), .failure(expectedError as RemoteProductsLoader.Error)):
+                XCTAssertEqual(receivedError, expectedError, file: file, line: line)
+            default:
+                XCTFail("Expected \(expectedResult) but got \(receivedResult).")
+            }
+            loadExpectation.fulfill()
+        }
         
         action()
+        waitForExpectations(timeout: 1.0)
         
-        XCTAssertEqual(capturedResults, [result], file: file, line: line)
     }
     
     private func makeJSON(of sizeList: [Size]) -> [[String: Any]] {
