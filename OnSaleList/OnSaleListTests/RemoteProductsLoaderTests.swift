@@ -74,56 +74,31 @@ class RemoteProductsLoaderTests: XCTestCase {
         }
     }
     
-    func test_load_deliversProductsOn200HTTPResponseNotEmpty() {
+    func test_load_deliversProductsOn200HTTPResponseWithAProductsList() {
         let (sut, client) = makeSUT()
         
         let size1 = Size(size: "P", available: true)
         let size2 = Size(size: "G", available: false)
         let sizesList = [size1, size2]
-        let sizesJSON = makeJSON(of: sizesList)
         
-        let product1 = ProductItem(
+        let product1 = makeProductItem(
             name: "product1",
-            imageURL: URL(string: "http://imageurl.com"),
-            price: "0",
-            onSale: false,
-            salePrice: "0",
-            sizes: sizesList
-        )
-        
-        let product1JSON: [String: Any] = [
-            "name": product1.name,
-            "image": product1.imageURL!.absoluteString,
-            "regular_price": product1.price,
-            "on_sale": product1.onSale,
-            "actual_price": product1.salePrice,
-            "sizes": sizesJSON
-        ]
-        
-        let product2 = ProductItem(
-            name: "product2",
-            imageURL: URL(string: "http://another-imageurl.com"),
             price: "2",
-            onSale: true,
             salePrice: "1",
             sizes: sizesList
         )
         
-        let product2JSON: [String: Any] = [
-            "name": product2.name,
-            "image": product2.imageURL!.absoluteString,
-            "regular_price": product2.price,
-            "on_sale": product2.onSale,
-            "actual_price": product2.salePrice,
-            "sizes": sizesJSON
-        ]
+        let product2 = makeProductItem(
+            name: "product2",
+            imageURL: URL(string: "http://image-url.com"),
+            price: "3",
+            onSale: true,
+            salePrice: "2",
+            sizes: sizesList
+        )
         
-        let productsJSON = [
-            "products": [product1JSON, product2JSON]
-        ]
-        
-        expect(sut, toCompleteWithResult: .success([product1, product2])) {
-            let json = try! JSONSerialization.data(withJSONObject: productsJSON)
+        expect(sut, toCompleteWithResult: .success([product1.model, product2.model])) {
+            let json = makeProductsData([product1.json, product2.json])
             client.complete(withStatusCode: 200, data: json)
         }
         
@@ -137,7 +112,7 @@ class RemoteProductsLoaderTests: XCTestCase {
         return (sut, client)
     }
     
-    private func expect(_ sut: RemoteProductsLoader, toCompleteWithResult result: RemoteProductsLoader.Result, file: StaticString = #file, line: UInt = #line, when action: () -> Void) {
+    private func expect(_ sut: RemoteProductsLoader, toCompleteWithResult result: RemoteProductsLoader.Result, file: StaticString = #filePath, line: UInt = #line, when action: () -> Void) {
         var capturedResults = [RemoteProductsLoader.Result]()
         sut.load { capturedResults.append($0)}
         
@@ -154,6 +129,26 @@ class RemoteProductsLoaderTests: XCTestCase {
             ]
         }
         return sizeListJSON
+    }
+    
+    private func makeProductItem(name: String, imageURL: URL? = nil, price: String, onSale: Bool = false, salePrice: String, sizes: [Size]) -> (model: ProductItem, json: [String: Any]) {
+        let productModel = ProductItem(name: name, imageURL: imageURL, price: price, onSale: onSale, salePrice: salePrice, sizes: sizes)
+        
+        let productJSON: [String: Any] = [
+            "name": productModel.name,
+            "image": productModel.imageURL?.absoluteString as Any,
+            "regular_price": productModel.price,
+            "on_sale": productModel.onSale,
+            "actual_price": productModel.salePrice,
+            "sizes": makeJSON(of: productModel.sizes)
+        ]
+        
+        return (productModel, productJSON)
+    }
+    
+    private func makeProductsData(_ products: [[String: Any]]) -> Data {
+        let producsJSON = ["products": products]
+        return try! JSONSerialization.data(withJSONObject: producsJSON)
     }
     
     private class HTTPClientSpy: HTTPClient {
