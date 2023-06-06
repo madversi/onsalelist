@@ -41,7 +41,7 @@ public final class RemoteProductsLoader {
             case let .success(data, response):
                 if response.statusCode == 200,
                 let root = try? JSONDecoder().decode(Root.self, from: data) {
-                    completion(.success(root.products))
+                    completion(.success(root.products.map { $0.productItem }))
                 } else {
                     completion(.failure(.invalidData))
                 }
@@ -53,5 +53,41 @@ public final class RemoteProductsLoader {
 }
 
 private struct Root: Decodable {
-    let products: [ProductItem]
+    let products: [Item]
+}
+
+private struct Item: Decodable {
+    let name: String
+    let image: URL?
+    let regularPrice: String
+    let onSale: Bool
+    let actualPrice: String
+    let sizes: [ItemSize]
+    
+    var productItem: ProductItem {
+        return ProductItem(
+            name: name,
+            imageURL: image,
+            price: regularPrice,
+            onSale: onSale,
+            salePrice: actualPrice,
+            sizes: sizes.map { $0.productSize }
+        )
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case name, image, sizes
+        case regularPrice = "regular_price"
+        case onSale = "on_sale"
+        case actualPrice = "actual_price"
+    }
+}
+
+private struct ItemSize: Decodable {
+    let size: String
+    let available: Bool
+    
+    var productSize: Size {
+        return Size(size: size, available: available)
+    }
 }

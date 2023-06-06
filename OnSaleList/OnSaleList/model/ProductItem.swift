@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Size: Equatable, Decodable {
+public struct Size: Equatable {
     public let size: String
     public let available: Bool
     
@@ -32,15 +32,5 @@ public struct ProductItem: Equatable {
         self.onSale = onSale
         self.salePrice = salePrice
         self.sizes = sizes
-    }
-}
-
-extension ProductItem: Decodable {
-    private enum CodingKeys: String, CodingKey {
-        case name, sizes
-        case imageURL = "image"
-        case price = "regular_price"
-        case onSale = "on_sale"
-        case salePrice = "actual_price"
     }
 }
