@@ -39,9 +39,8 @@ public final class RemoteProductsLoader {
         client.get(from: url) { result in
             switch result {
             case let .success(data, response):
-                if response.statusCode == 200,
-                let root = try? JSONDecoder().decode(Root.self, from: data) {
-                    completion(.success(root.products.map { $0.productItem }))
+                if let products = try? ProductItemsMapper.map(data, response) {
+                    completion(.success(products))
                 } else {
                     completion(.failure(.invalidData))
                 }
@@ -52,42 +51,51 @@ public final class RemoteProductsLoader {
     }
 }
 
-private struct Root: Decodable {
-    let products: [Item]
-}
-
-private struct Item: Decodable {
-    let name: String
-    let image: URL?
-    let regularPrice: String
-    let onSale: Bool
-    let actualPrice: String
-    let sizes: [ItemSize]
-    
-    var productItem: ProductItem {
-        return ProductItem(
-            name: name,
-            imageURL: image,
-            price: regularPrice,
-            onSale: onSale,
-            salePrice: actualPrice,
-            sizes: sizes.map { $0.productSize }
-        )
+private class ProductItemsMapper {
+    private struct Root: Decodable {
+        let products: [Item]
     }
-    
-    private enum CodingKeys: String, CodingKey {
-        case name, image, sizes
-        case regularPrice = "regular_price"
-        case onSale = "on_sale"
-        case actualPrice = "actual_price"
-    }
-}
 
-private struct ItemSize: Decodable {
-    let size: String
-    let available: Bool
-    
-    var productSize: Size {
-        return Size(size: size, available: available)
+    private struct Item: Decodable {
+        let name: String
+        let image: URL?
+        let regularPrice: String
+        let onSale: Bool
+        let actualPrice: String
+        let sizes: [ItemSize]
+        
+        var productItem: ProductItem {
+            return ProductItem(
+                name: name,
+                imageURL: image,
+                price: regularPrice,
+                onSale: onSale,
+                salePrice: actualPrice,
+                sizes: sizes.map { $0.productSize }
+            )
+        }
+        
+        private enum CodingKeys: String, CodingKey {
+            case name, image, sizes
+            case regularPrice = "regular_price"
+            case onSale = "on_sale"
+            case actualPrice = "actual_price"
+        }
+    }
+
+    private struct ItemSize: Decodable {
+        let size: String
+        let available: Bool
+        
+        var productSize: Size {
+            return Size(size: size, available: available)
+        }
+    }
+
+    static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [ProductItem] {
+        guard response.statusCode == 200 else {
+            throw RemoteProductsLoader.Error.invalidData
+        }
+        return try JSONDecoder().decode(Root.self, from: data).products.map { $0.productItem }
     }
 }
