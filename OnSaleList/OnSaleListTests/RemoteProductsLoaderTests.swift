@@ -78,27 +78,9 @@ class RemoteProductsLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
         
         let size1 = Size(size: "P", available: true)
-        let size2 = Size(size: "M", available: true)
-        let size3 = Size(size: "G", available: false)
-        
-        let sizes = [size1, size2, size3]
-        
-        let size1JSON: [String: Any] = [
-            "size": size1.size,
-            "available": size1.available
-        ]
-        
-        let size2JSON: [String: Any] = [
-            "size": size2.size,
-            "available": size2.available
-        ]
-        
-        let size3JSON: [String: Any] = [
-            "size": size3.size,
-            "available": size3.available
-        ]
-        
-        let sizesJSON = [size1JSON, size2JSON, size3JSON]
+        let size2 = Size(size: "G", available: false)
+        let sizesList = [size1, size2]
+        let sizesJSON = makeJSON(of: sizesList)
         
         let product1 = ProductItem(
             name: "product1",
@@ -106,7 +88,7 @@ class RemoteProductsLoaderTests: XCTestCase {
             price: "0",
             onSale: false,
             salePrice: "0",
-            sizes: sizes
+            sizes: sizesList
         )
         
         let product1JSON: [String: Any] = [
@@ -124,7 +106,7 @@ class RemoteProductsLoaderTests: XCTestCase {
             price: "2",
             onSale: true,
             salePrice: "1",
-            sizes: sizes
+            sizes: sizesList
         )
         
         let product2JSON: [String: Any] = [
@@ -162,6 +144,16 @@ class RemoteProductsLoaderTests: XCTestCase {
         action()
         
         XCTAssertEqual(capturedResults, [result], file: file, line: line)
+    }
+    
+    private func makeJSON(of sizeList: [Size]) -> [[String: Any]] {
+        let sizeListJSON: [[String : Any]] = sizeList.map { size in
+            [
+                "size": size.size,
+                "available": size.available
+            ]
+        }
+        return sizeListJSON
     }
     
     private class HTTPClientSpy: HTTPClient {
