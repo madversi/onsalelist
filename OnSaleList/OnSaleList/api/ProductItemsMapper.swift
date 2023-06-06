@@ -10,6 +10,10 @@ import Foundation
 final class ProductItemsMapper {
     private struct Root: Decodable {
         let products: [Item]
+        
+        var productsList: [ProductItem] {
+            return products.map { $0.productItem }
+        }
     }
 
     private struct Item: Decodable {
@@ -48,10 +52,12 @@ final class ProductItemsMapper {
         }
     }
 
-    static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [ProductItem] {
-        guard response.statusCode == 200 else {
-            throw RemoteProductsLoader.Error.invalidData
+    static func map(_ data: Data, _ response: HTTPURLResponse) ->  RemoteProductsLoader.Result{
+        guard response.statusCode == 200,
+              let root = try? JSONDecoder().decode(Root.self, from: data) else {
+            return .failure(.invalidData)
         }
-        return try JSONDecoder().decode(Root.self, from: data).products.map { $0.productItem }
+
+        return .success(root.productsList)
     }
 }
