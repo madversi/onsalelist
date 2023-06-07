@@ -11,43 +11,32 @@ class ProductsListViewController: UIViewController {
 
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
-    
+        
     // MARK: - Properties
-    static let productsLoader = RemoteProductsLoader(url: URL(string: "https://www.mocky.io/v2/59b6a65a0f0000e90471257d")!, client: URLSessionHTTPClient())
-    
-    var products = [ProductItem]()
+    private var viewModel = ProductsListViewModel()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ProductCellView", bundle: nil), forCellReuseIdentifier: ProductCell.reuseIdentifier)
-        
-        ProductsListViewController.productsLoader.load { [weak self] result in
-            switch result {
-            case let .success(products):
-                self?.products = products
-            case let .failure(error):
-                print(error)
-            }
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
-        
+        viewModel.fetchProducts()
     }
     
 }
 
 extension ProductsListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        products.count
+        viewModel.productsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.reuseIdentifier, for: indexPath) as? ProductCell else {
             return UITableViewCell()
         }
+        
+        let products = viewModel.productsList
         let productItem = products[indexPath.row]
         
         let cellViewModel = ProductCellViewModel(image: UIImage(), name: productItem.name, price: productItem.price, onSale: productItem.onSale.description, salePrice: productItem.salePrice, availableSizes: productItem.sizes.map { $0.size }.description) {
@@ -58,4 +47,16 @@ extension ProductsListViewController: UITableViewDataSource {
         return cell
     }
     
+}
+
+extension ProductsListViewController: ProductsListViewModelDelegate {
+    func onFetchProductsSuccess() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
+    }
+    
+    func onFetchProductsFailure(errorDescription: String) {
+        UIAlertController(title: "Error!", message: "Got error: \(errorDescription)", preferredStyle: .alert).show(self, sender: nil)
+    }
 }
