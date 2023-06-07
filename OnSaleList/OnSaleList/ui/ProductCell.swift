@@ -9,6 +9,10 @@ import UIKit
 
 class ProductCell: UITableViewCell {
     
+    static let reuseIdentifier = "ProductCell"
+    
+    var viewModel: ProductCellViewModel?
+    
     // MARK: - Outlets
     @IBOutlet weak var productImageView: UIImageView!
     @IBOutlet weak var productNameLabel: UILabel!
@@ -19,15 +23,16 @@ class ProductCell: UITableViewCell {
     
     // MARK: - Setup
     func configureProductCell(with productCellViewModel: ProductCellViewModel) {
-        productImageView.image = productCellViewModel.image
-        productNameLabel.text = productCellViewModel.name
-        productPriceLabel.text = productCellViewModel.price
-        productOnSaleLabel.text = productCellViewModel.onSale
-        productAvailableSizesLabel.text = productCellViewModel.availableSizes
+        viewModel = productCellViewModel
+        productImageView.image = viewModel?.image
+        productNameLabel.text = viewModel?.name
+        productPriceLabel.text = viewModel?.price
+        productOnSaleLabel.text = viewModel?.onSale
+        productAvailableSizesLabel.text = viewModel?.availableSizes
     }
     
     @IBAction func didTapAddToCartButton() {
-//        delegate.didTapAddToCartButton()
+        viewModel?.addToCartAction()
     }
     
 }
@@ -39,13 +44,15 @@ class ProductCellViewModel {
     let onSale: String
     let salePrice: String
     let availableSizes: String
+    let addToCartAction: () -> Void
     
-    init(image: UIImage, name: String, price: String, onSale: String, salePrice: String, availableSizes: String) {
+    init(image: UIImage, name: String, price: String, onSale: String, salePrice: String, availableSizes: String, addToCartAction: @escaping () -> Void) {
         self.image = image
         self.name = name
         self.price = price
         self.onSale = onSale
         self.salePrice = salePrice
         self.availableSizes = availableSizes
+        self.addToCartAction = addToCartAction
     }
 }

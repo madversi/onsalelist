@@ -9,6 +9,13 @@ import UIKit
 
 class ProductsListViewController: UIViewController {
 
+    // MARK: - Outlets
+    @IBOutlet weak var tableView: UITableView!
+    
+    // MARK: - Properties
+    let products = [ProductItem]()
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

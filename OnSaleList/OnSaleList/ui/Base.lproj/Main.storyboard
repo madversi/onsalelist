@@ -32,6 +32,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Products" image="tshirt" catalog="system" id="RnU-1t-3lW"/>
+                    <connections>
+                        <outlet property="tableView" destination="Jik-g4-g98" id="SjV-ge-nsU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sBU-EM-vv9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
