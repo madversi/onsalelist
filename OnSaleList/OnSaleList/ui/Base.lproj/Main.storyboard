@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wgp-nx-Pga">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Products-->
+        <scene sceneID="cWP-jl-1xX">
+            <objects>
+                <viewController title="Products" id="Clk-bb-cxl" customClass="ProductsListViewController" customModule="OnSaleList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ed0-H3-u6c">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Jik-g4-g98">
+                                <rect key="frame" x="8" y="67" width="377" height="694"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Ap2-f5-zTk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Jik-g4-g98" firstAttribute="top" secondItem="Ap2-f5-zTk" secondAttribute="top" constant="8" id="5iy-U4-90e"/>
+                            <constraint firstItem="Ap2-f5-zTk" firstAttribute="trailing" secondItem="Jik-g4-g98" secondAttribute="trailing" constant="8" id="Vwx-62-7n8"/>
+                            <constraint firstItem="Ap2-f5-zTk" firstAttribute="bottom" secondItem="Jik-g4-g98" secondAttribute="bottom" constant="8" id="Yx1-4K-FR3"/>
+                            <constraint firstItem="Jik-g4-g98" firstAttribute="leading" secondItem="Ap2-f5-zTk" secondAttribute="leading" constant="8" id="YyN-Mt-5uV"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Products" image="tshirt" catalog="system" id="RnU-1t-3lW"/>
+                    <connections>
+                        <outlet property="tableView" destination="Jik-g4-g98" id="SjV-ge-nsU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sBU-EM-vv9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1573" y="-1449"/>
+        </scene>
+        <!--Shopping Cart-->
+        <scene sceneID="HIT-eJ-7ER">
+            <objects>
+                <viewController title="Shopping Cart" id="Axs-2b-GhG" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4uf-L6-3kN">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Vyr-5l-Yug"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Shopping Cart" image="cart" catalog="system" id="HW7-ME-PKu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gqH-LG-hAG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1573" y="-437"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="oYQ-Qj-bn4">
+            <objects>
+                <tabBarController id="wgp-nx-Pga" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7Vs-Fq-kKC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Clk-bb-cxl" kind="relationship" relationship="viewControllers" id="9xw-et-6as"/>
+                        <segue destination="Axs-2b-GhG" kind="relationship" relationship="viewControllers" id="P20-2E-m7i"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pe1-Dw-jUL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="324" y="-859"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="cart" catalog="system" width="128" height="102"/>
+        <image name="tshirt" catalog="system" width="128" height="98"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
