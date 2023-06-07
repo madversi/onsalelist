@@ -9,22 +9,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Shopping Cart-->
-        <scene sceneID="HIT-eJ-7ER">
-            <objects>
-                <viewController title="Shopping Cart" id="Axs-2b-GhG" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="4uf-L6-3kN">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="Vyr-5l-Yug"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Shopping Cart" image="cart" catalog="system" id="HW7-ME-PKu"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gqH-LG-hAG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1573" y="-437"/>
-        </scene>
         <!--Products-->
         <scene sceneID="cWP-jl-1xX">
             <objects>
@@ -52,6 +36,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sBU-EM-vv9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1573" y="-1449"/>
+        </scene>
+        <!--Shopping Cart-->
+        <scene sceneID="HIT-eJ-7ER">
+            <objects>
+                <viewController title="Shopping Cart" id="Axs-2b-GhG" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4uf-L6-3kN">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Vyr-5l-Yug"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Shopping Cart" image="cart" catalog="system" id="HW7-ME-PKu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gqH-LG-hAG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1573" y="-437"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="oYQ-Qj-bn4">

@@ -92,14 +92,12 @@
 		25600BFF2A2924CB00FF87A2 /* OnSaleList */ = {
 			isa = PBXGroup;
 			children = (
+				25EC600B2A30D3AF00E3E1F6 /* ui */,
 				25600C372A29340800FF87A2 /* api */,
 				25600C302A29251C00FF87A2 /* model */,
 				25600C002A2924CB00FF87A2 /* AppDelegate.swift */,
 				25600C022A2924CB00FF87A2 /* SceneDelegate.swift */,
-				25600C042A2924CB00FF87A2 /* ViewController.swift */,
-				25600C062A2924CB00FF87A2 /* Main.storyboard */,
 				25600C092A2924CC00FF87A2 /* Assets.xcassets */,
-				25600C0B2A2924CC00FF87A2 /* LaunchScreen.storyboard */,
 				25600C0E2A2924CC00FF87A2 /* Info.plist */,
 			);
 			path = OnSaleList;
@@ -126,8 +124,8 @@
 			isa = PBXGroup;
 			children = (
 				25600C382A29341600FF87A2 /* RemoteProductsLoader.swift */,
-				2510685E2A2EEC320037029C /* HTTPClient.swift */,
 				251068602A2EEC990037029C /* ProductItemsMapper.swift */,
+				2510685E2A2EEC320037029C /* HTTPClient.swift */,
 				25AC8C972A303AB000056F55 /* URLSessionHTTPClient.swift */,
 			);
 			path = api;
@@ -140,6 +138,16 @@
 				25AC05ED2A2EFDBC00A5F946 /* URLSessionHTTPClientTests.swift */,
 			);
 			path = api;
+			sourceTree = "<group>";
+		};
+		25EC600B2A30D3AF00E3E1F6 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				25600C0B2A2924CC00FF87A2 /* LaunchScreen.storyboard */,
+				25600C062A2924CB00FF87A2 /* Main.storyboard */,
+				25600C042A2924CB00FF87A2 /* ViewController.swift */,
+			);
+			path = ui;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
