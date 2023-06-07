@@ -35,13 +35,9 @@ extension ProductsListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.reuseIdentifier, for: indexPath) as? ProductCell else {
             return UITableViewCell()
         }
-        
-        let products = viewModel.productsList
-        let productItem = products[indexPath.row]
-        
-        let cellViewModel = ProductCellViewModel(image: UIImage(), name: productItem.name, price: productItem.price, onSale: productItem.onSale.description, salePrice: productItem.salePrice, availableSizes: productItem.sizes.map { $0.size }.description) {
-            print(productItem.name)
-        }
+
+        let productItem = viewModel.productsList[indexPath.row]
+        let cellViewModel = viewModel.makeCellViewModel(with: productItem)
         
         cell.configureProductCell(with: cellViewModel)
         return cell

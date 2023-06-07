@@ -5,7 +5,7 @@
 //  Created by Helder Marcelo Adversi Junior on 07/06/23.
 //
 
-import Foundation
+import UIKit
 
 protocol ProductsListViewModelDelegate: AnyObject {
     func onFetchProductsSuccess()
@@ -36,7 +36,19 @@ final class ProductsListViewModel {
                 self?.delegate?.onFetchProductsFailure(errorDescription: error.localizedDescription)
             }
         }
-        
+    }
+    
+    func makeCellViewModel(with productItem: ProductItem) -> ProductCellViewModel {
+        let productCellViewModel = ProductCellViewModel(
+            image: UIImage(),
+            name: productItem.name,
+            price: productItem.price,
+            onSale: productItem.onSale.description,
+            salePrice: productItem.salePrice,
+            availableSizes: productItem.sizes.map { $0.size }.description,
+            addToCartAction: { }
+        )
+        return productCellViewModel
     }
     
 }
