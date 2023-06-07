@@ -39,14 +39,21 @@ final class ProductsListViewModel {
     }
     
     func makeCellViewModel(with productItem: ProductItem) -> ProductCellViewModel {
-        let onSaleText = productItem.onSale ? "Exclusive offer!" : ""
-        let salePriceText = productItem.onSale ? productItem.salePrice : ""
+        var regularPriceText = productItem.price
+        var onSaleText = ""
+        var salePriceText = ""
+        if productItem.onSale {
+            regularPriceText = ""
+            onSaleText = "Exclusive offer! From \(productItem.price) to:"
+            salePriceText = productItem.salePrice
+        }
+        
         let availableSizesText = makeSizesString(from: productItem.sizes)
         
         let productCellViewModel = ProductCellViewModel(
-            image: UIImage(),
+            image: productItem.imageURL,
             name: productItem.name,
-            price: productItem.price,
+            price: regularPriceText,
             onSale: onSaleText,
             salePrice: salePriceText,
             availableSizes: availableSizesText,

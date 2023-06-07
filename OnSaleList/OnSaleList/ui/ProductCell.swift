@@ -5,10 +5,10 @@
 //  Created by Helder Marcelo Adversi Junior on 07/06/23.
 //
 
+import Kingfisher
 import UIKit
 
 class ProductCell: UITableViewCell {
-    
     static let reuseIdentifier = "ProductCell"
     
     var viewModel: ProductCellViewModel?
@@ -24,10 +24,11 @@ class ProductCell: UITableViewCell {
     // MARK: - Setup
     func configureProductCell(with productCellViewModel: ProductCellViewModel) {
         viewModel = productCellViewModel
-        productImageView.image = viewModel?.image
+        setupImageView()
         productNameLabel.text = viewModel?.name
         productPriceLabel.text = viewModel?.price
         productOnSaleLabel.text = viewModel?.onSale
+        productSalePriceLabel.text = viewModel?.salePrice
         productAvailableSizesLabel.text = viewModel?.availableSizes
     }
     
@@ -35,10 +36,39 @@ class ProductCell: UITableViewCell {
         viewModel?.addToCartAction()
     }
     
+    
+    // Will be moved to a proper location in the next PRs
+    private func setupImageView() {
+        guard let url = viewModel?.image else {
+            productImageView.image = UIImage(named: "Placeholder")
+            return
+        }
+        
+        let processor = DownsamplingImageProcessor(size: productImageView.bounds.size)
+        productImageView.kf.indicatorType = .activity
+        productImageView.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: "Placeholder"),
+            options: [
+                .processor(processor),
+                .scaleFactor(UIScreen.main.scale),
+                .transition(.fade(1)),
+                .cacheOriginalImage
+            ])
+        {
+            result in
+            switch result {
+            case .success(let value):
+                print("Task done for: \(value.source.url?.absoluteString ?? "")")
+            case .failure(let error):
+                print("Job failed: \(error.localizedDescription)")
+            }
+        }
+    }
 }
 
 class ProductCellViewModel {
-    let image: UIImage
+    let image: URL?
     let name: String
     let price: String
     let onSale: String
@@ -46,7 +76,7 @@ class ProductCellViewModel {
     let availableSizes: String
     let addToCartAction: () -> Void
     
-    init(image: UIImage, name: String, price: String, onSale: String, salePrice: String, availableSizes: String, addToCartAction: @escaping () -> Void) {
+    init(image: URL?, name: String, price: String, onSale: String, salePrice: String, availableSizes: String, addToCartAction: @escaping () -> Void) {
         self.image = image
         self.name = name
         self.price = price
