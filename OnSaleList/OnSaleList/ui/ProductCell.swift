@@ -36,7 +36,6 @@ class ProductCell: UITableViewCell {
         viewModel?.addToCartAction()
     }
     
-    
     // Will be moved to a proper location in the next PRs
     private func setupImageView() {
         guard let url = viewModel?.image else {
