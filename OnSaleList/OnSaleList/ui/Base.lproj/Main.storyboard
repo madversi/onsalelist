@@ -12,7 +12,7 @@
         <!--Products-->
         <scene sceneID="cWP-jl-1xX">
             <objects>
-                <viewController title="Products" id="Clk-bb-cxl" customClass="ViewController" customModule="OnSaleList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Products" id="Clk-bb-cxl" customClass="ProductsListViewController" customModule="OnSaleList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ed0-H3-u6c">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
