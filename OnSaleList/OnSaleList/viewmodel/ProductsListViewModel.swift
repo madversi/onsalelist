@@ -39,16 +39,29 @@ final class ProductsListViewModel {
     }
     
     func makeCellViewModel(with productItem: ProductItem) -> ProductCellViewModel {
+        let onSaleText = productItem.onSale ? "Exclusive offer!" : ""
+        let salePriceText = productItem.onSale ? productItem.salePrice : ""
+        let availableSizesText = makeSizesString(from: productItem.sizes)
+        
         let productCellViewModel = ProductCellViewModel(
             image: UIImage(),
             name: productItem.name,
             price: productItem.price,
-            onSale: productItem.onSale.description,
-            salePrice: productItem.salePrice,
-            availableSizes: productItem.sizes.map { $0.size }.description,
+            onSale: onSaleText,
+            salePrice: salePriceText,
+            availableSizes: availableSizesText,
             addToCartAction: { }
         )
         return productCellViewModel
+    }
+    
+    private func makeSizesString(from sizesArray: [Size]) -> String {
+        var sizesString = "Available in: "
+        sizesString += sizesArray.compactMap {
+            $0.available ? $0.size : nil
+        }.joined(separator: ", ")
+        
+        return sizesString
     }
     
 }
