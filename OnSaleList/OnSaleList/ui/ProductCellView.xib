@@ -55,6 +55,9 @@
                         <rect key="frame" x="8" y="152.33333333333334" width="377" height="38.666666666666657"/>
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" title="Add to Cart"/>
+                        <connections>
+                            <action selector="didTapAddToCartButton" destination="cPW-ti-UCH" eventType="touchUpInside" id="Fo5-9N-DW2"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

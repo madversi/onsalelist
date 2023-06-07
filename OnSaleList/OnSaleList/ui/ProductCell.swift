@@ -16,11 +16,18 @@ class ProductCell: UITableViewCell {
     @IBOutlet weak var productOnSaleLabel: UILabel!
     @IBOutlet weak var productSalePriceLabel: UILabel!
     @IBOutlet weak var productAvailableSizesLabel: UILabel!
-    @IBOutlet weak var addToChartButton: UIButton!
     
     // MARK: - Setup
     func configureProductCell(with productCellViewModel: ProductCellViewModel) {
-        
+        productImageView.image = productCellViewModel.image
+        productNameLabel.text = productCellViewModel.name
+        productPriceLabel.text = productCellViewModel.price
+        productOnSaleLabel.text = productCellViewModel.onSale
+        productAvailableSizesLabel.text = productCellViewModel.availableSizes
+    }
+    
+    @IBAction func didTapAddToCartButton() {
+//        delegate.didTapAddToCartButton()
     }
     
 }
