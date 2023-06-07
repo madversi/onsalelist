@@ -18,7 +18,7 @@ final class ProductItemsMapper {
 
     private struct Item: Decodable {
         let name: String
-        let image: URL?
+        let image: String
         let regularPrice: String
         let onSale: Bool
         let actualPrice: String
@@ -27,7 +27,7 @@ final class ProductItemsMapper {
         var productItem: ProductItem {
             return ProductItem(
                 name: name,
-                imageURL: image,
+                imageURL: URL(string: image),
                 price: regularPrice,
                 onSale: onSale,
                 salePrice: actualPrice,
@@ -52,12 +52,10 @@ final class ProductItemsMapper {
         }
     }
 
-    static func map(_ data: Data, _ response: HTTPURLResponse) ->  RemoteProductsLoader.Result{
-        guard response.statusCode == 200,
-              let root = try? JSONDecoder().decode(Root.self, from: data) else {
+    static func map(_ data: Data, _ response: HTTPURLResponse) ->  RemoteProductsLoader.Result {
+        guard response.statusCode == 200, let root = try? JSONDecoder().decode(Root.self, from: data) else {
             return .failure(RemoteProductsLoader.Error.invalidData)
         }
-
         return .success(root.productsList)
     }
 }

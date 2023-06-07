@@ -148,7 +148,7 @@ class RemoteProductsLoaderTests: XCTestCase {
             case let (.failure(receivedError as RemoteProductsLoader.Error), .failure(expectedError as RemoteProductsLoader.Error)):
                 XCTAssertEqual(receivedError, expectedError, file: file, line: line)
             default:
-                XCTFail("Expected \(expectedResult) but got \(receivedResult).")
+                XCTFail("Expected \(expectedResult) but got \(receivedResult).", file: file, line: line)
             }
             loadExpectation.fulfill()
         }
@@ -173,7 +173,7 @@ class RemoteProductsLoaderTests: XCTestCase {
         
         let productJSON: [String: Any] = [
             "name": productModel.name,
-            "image": productModel.imageURL?.absoluteString as Any,
+            "image": productModel.imageURL?.absoluteString ?? "",
             "regular_price": productModel.price,
             "on_sale": productModel.onSale,
             "actual_price": productModel.salePrice,
