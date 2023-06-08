@@ -79,6 +79,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		250861AC2A3245FB00154996 /* products */ = {
+			isa = PBXGroup;
+			children = (
+				25600C042A2924CB00FF87A2 /* ProductsListViewController.swift */,
+				25EC600C2A30D57800E3E1F6 /* ProductCell.swift */,
+				25EC60102A30D68A00E3E1F6 /* ProductCellView.xib */,
+			);
+			path = products;
+			sourceTree = "<group>";
+		};
+		250861AD2A32460200154996 /* cart */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = cart;
+			sourceTree = "<group>";
+		};
+		250861AE2A32462900154996 /* products */ = {
+			isa = PBXGroup;
+			children = (
+				25EC60132A3101A400E3E1F6 /* ProductsListViewModel.swift */,
+			);
+			path = products;
+			sourceTree = "<group>";
+		};
+		250861AF2A32463100154996 /* cart */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = cart;
+			sourceTree = "<group>";
+		};
 		25600BF42A2924CB00FF87A2 = {
 			isa = PBXGroup;
 			children = (
@@ -152,11 +184,10 @@
 		25EC600B2A30D3AF00E3E1F6 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				250861AD2A32460200154996 /* cart */,
+				250861AC2A3245FB00154996 /* products */,
 				25600C0B2A2924CC00FF87A2 /* LaunchScreen.storyboard */,
 				25600C062A2924CB00FF87A2 /* Main.storyboard */,
-				25600C042A2924CB00FF87A2 /* ProductsListViewController.swift */,
-				25EC600C2A30D57800E3E1F6 /* ProductCell.swift */,
-				25EC60102A30D68A00E3E1F6 /* ProductCellView.xib */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -164,7 +195,8 @@
 		25EC60122A31017800E3E1F6 /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
-				25EC60132A3101A400E3E1F6 /* ProductsListViewModel.swift */,
+				250861AF2A32463100154996 /* cart */,
+				250861AE2A32462900154996 /* products */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
