@@ -90,6 +90,11 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Shopping Cart" image="cart" catalog="system" id="HW7-ME-PKu"/>
+                    <connections>
+                        <outlet property="tableView" destination="uBZ-6Q-6Yk" id="HbZ-5p-Ye6"/>
+                        <outlet property="totalInCartLabel" destination="q9C-91-0zH" id="Xld-Ox-VKP"/>
+                        <outlet property="totalPrice" destination="LUr-D4-G5O" id="pD9-FX-LO7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gqH-LG-hAG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

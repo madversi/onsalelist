@@ -9,4 +9,9 @@ import UIKit
 
 class ShoppingCartViewController: UIViewController {
     
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var totalInCartLabel: UILabel!
+    @IBOutlet weak var totalPrice: UILabel!
+    
+    
 }
