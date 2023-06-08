@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		250861B12A32791500154996 /* ShoppingCartCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 250861B02A32791500154996 /* ShoppingCartCellView.xib */; };
 		2510685F2A2EEC320037029C /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2510685E2A2EEC320037029C /* HTTPClient.swift */; };
 		251068612A2EEC990037029C /* ProductItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251068602A2EEC990037029C /* ProductItemsMapper.swift */; };
 		25600C012A2924CB00FF87A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25600C002A2924CB00FF87A2 /* AppDelegate.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		250861B02A32791500154996 /* ShoppingCartCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingCartCellView.xib; sourceTree = "<group>"; };
 		2510685E2A2EEC320037029C /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		251068602A2EEC990037029C /* ProductItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductItemsMapper.swift; sourceTree = "<group>"; };
 		25600BFD2A2924CB00FF87A2 /* OnSaleList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnSaleList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +94,7 @@
 		250861AD2A32460200154996 /* cart */ = {
 			isa = PBXGroup;
 			children = (
+				250861B02A32791500154996 /* ShoppingCartCellView.xib */,
 			);
 			path = cart;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				250861B12A32791500154996 /* ShoppingCartCellView.xib in Resources */,
 				25EC60112A30D68A00E3E1F6 /* ProductCellView.xib in Resources */,
 				25600C0D2A2924CC00FF87A2 /* LaunchScreen.storyboard in Resources */,
 				25600C0A2A2924CC00FF87A2 /* Assets.xcassets in Resources */,

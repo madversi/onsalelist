@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShoppingCartCell" rowHeight="159" id="OmX-7C-1Gs">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="159"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OmX-7C-1Gs" id="2Mi-5t-HMb">
+                <rect key="frame" x="0.0" y="0.0" width="393" height="159"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0gM-6w-djt">
+                        <rect key="frame" x="8" y="8" width="100" height="140"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="pt3-FP-mm3"/>
+                            <constraint firstAttribute="height" constant="140" id="seA-DQ-7Fz"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="VESTIDO TRANSPASSE BOW" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j97-zC-bsk">
+                        <rect key="frame" x="116" y="7.9999999999999982" width="269" height="20.333333333333329"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="R$ 199,90" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W2u-cr-uET">
+                        <rect key="frame" x="116" y="36.333333333333336" width="269" height="28.666666666666664"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Quantity:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ypc-eC-jxU">
+                        <rect key="frame" x="116" y="73" width="79.666666666666686" height="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGe-mr-H7L">
+                        <rect key="frame" x="203.66666666666663" y="73" width="181.33333333333337" height="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EVD-ll-HYh">
+                        <rect key="frame" x="116" y="105" width="47" height="35"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="minus" catalog="system"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eDl-gy-QVO">
+                        <rect key="frame" x="171" y="105" width="47" height="35"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8C-VA-Lpb">
+                        <rect key="frame" x="337" y="105" width="48" height="35"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="j97-zC-bsk" firstAttribute="leading" secondItem="0gM-6w-djt" secondAttribute="trailing" constant="8" id="3BY-Xr-7XW"/>
+                    <constraint firstAttribute="bottom" secondItem="0gM-6w-djt" secondAttribute="bottom" constant="8" id="6S3-WX-Jns"/>
+                    <constraint firstItem="eDl-gy-QVO" firstAttribute="top" secondItem="BGe-mr-H7L" secondAttribute="bottom" constant="8" id="BlK-Kx-aLJ"/>
+                    <constraint firstItem="EVD-ll-HYh" firstAttribute="top" secondItem="ypc-eC-jxU" secondAttribute="bottom" constant="8" id="D1G-a6-lUx"/>
+                    <constraint firstItem="0gM-6w-djt" firstAttribute="top" secondItem="2Mi-5t-HMb" secondAttribute="top" constant="8" id="DlP-HN-YiH"/>
+                    <constraint firstAttribute="trailing" secondItem="W2u-cr-uET" secondAttribute="trailing" constant="8" id="E5h-h0-ljw"/>
+                    <constraint firstItem="BGe-mr-H7L" firstAttribute="top" secondItem="W2u-cr-uET" secondAttribute="bottom" constant="8" id="GX1-5r-BOX"/>
+                    <constraint firstAttribute="trailing" secondItem="BGe-mr-H7L" secondAttribute="trailing" constant="8" id="M3L-7q-v24"/>
+                    <constraint firstItem="ypc-eC-jxU" firstAttribute="top" secondItem="W2u-cr-uET" secondAttribute="bottom" constant="8" id="TVg-7J-6lm"/>
+                    <constraint firstAttribute="bottom" secondItem="EVD-ll-HYh" secondAttribute="bottom" constant="8" id="VTe-Cy-bA7"/>
+                    <constraint firstAttribute="trailing" secondItem="f8C-VA-Lpb" secondAttribute="trailing" constant="8" id="crZ-U1-TKs"/>
+                    <constraint firstAttribute="trailing" secondItem="j97-zC-bsk" secondAttribute="trailing" constant="8" id="iaw-nA-Mx4"/>
+                    <constraint firstItem="W2u-cr-uET" firstAttribute="top" secondItem="j97-zC-bsk" secondAttribute="bottom" constant="8" id="jbh-h9-Upb"/>
+                    <constraint firstItem="f8C-VA-Lpb" firstAttribute="top" secondItem="BGe-mr-H7L" secondAttribute="bottom" constant="8" id="laP-Me-78w"/>
+                    <constraint firstItem="BGe-mr-H7L" firstAttribute="leading" secondItem="ypc-eC-jxU" secondAttribute="trailing" constant="8" id="leM-XQ-gGO"/>
+                    <constraint firstItem="0gM-6w-djt" firstAttribute="leading" secondItem="2Mi-5t-HMb" secondAttribute="leading" constant="8" id="mvw-5c-4uI"/>
+                    <constraint firstItem="EVD-ll-HYh" firstAttribute="leading" secondItem="0gM-6w-djt" secondAttribute="trailing" constant="8" id="n9u-Ah-YHU"/>
+                    <constraint firstAttribute="bottom" secondItem="eDl-gy-QVO" secondAttribute="bottom" constant="8" id="nvR-Fj-C9p"/>
+                    <constraint firstItem="eDl-gy-QVO" firstAttribute="leading" secondItem="EVD-ll-HYh" secondAttribute="trailing" constant="8" id="qXj-aS-aiy"/>
+                    <constraint firstItem="W2u-cr-uET" firstAttribute="leading" secondItem="0gM-6w-djt" secondAttribute="trailing" constant="8" id="u7g-WW-cwQ"/>
+                    <constraint firstItem="j97-zC-bsk" firstAttribute="top" secondItem="2Mi-5t-HMb" secondAttribute="top" constant="8" id="uzZ-gQ-6dL"/>
+                    <constraint firstAttribute="bottom" secondItem="f8C-VA-Lpb" secondAttribute="bottom" constant="8" id="wuX-LY-3Fz"/>
+                    <constraint firstItem="ypc-eC-jxU" firstAttribute="leading" secondItem="0gM-6w-djt" secondAttribute="trailing" constant="8" id="x6J-SJ-VvD"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="81.679389312977094" y="-25.704225352112676"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="minus" catalog="system" width="128" height="26"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="trash" catalog="system" width="117" height="128"/>
+    </resources>
+</document>
