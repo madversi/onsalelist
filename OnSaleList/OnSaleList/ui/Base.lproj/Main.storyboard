@@ -43,7 +43,7 @@
         <!--Shopping Cart-->
         <scene sceneID="HIT-eJ-7ER">
             <objects>
-                <viewController title="Shopping Cart" id="Axs-2b-GhG" sceneMemberID="viewController">
+                <viewController title="Shopping Cart" id="Axs-2b-GhG" customClass="ShoppingCartViewController" customModule="OnSaleList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4uf-L6-3kN">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
