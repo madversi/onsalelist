@@ -47,14 +47,53 @@
                     <view key="view" contentMode="scaleToFill" id="4uf-L6-3kN">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total in cart:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9C-91-0zH">
+                                <rect key="frame" x="8.0000000000000071" y="733" width="119.66666666666669" height="28"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="R$ 299,90" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUr-D4-G5O">
+                                <rect key="frame" x="135.66666666666663" y="729.66666666666663" width="249.33333333333337" height="31.333333333333371"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cart" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gk6-xd-eMR">
+                                <rect key="frame" x="8" y="67" width="377" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uBZ-6Q-6Yk">
+                                <rect key="frame" x="8" y="102" width="377" height="619.66666666666663"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Vyr-5l-Yug"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Gk6-xd-eMR" firstAttribute="top" secondItem="Vyr-5l-Yug" secondAttribute="top" constant="8" id="0Bd-Zh-m9S"/>
+                            <constraint firstItem="uBZ-6Q-6Yk" firstAttribute="top" secondItem="Gk6-xd-eMR" secondAttribute="bottom" constant="8" id="0xh-vb-1yL"/>
+                            <constraint firstItem="Vyr-5l-Yug" firstAttribute="trailing" secondItem="uBZ-6Q-6Yk" secondAttribute="trailing" constant="8" id="7XY-UM-YKK"/>
+                            <constraint firstItem="Gk6-xd-eMR" firstAttribute="leading" secondItem="Vyr-5l-Yug" secondAttribute="leading" constant="8" id="BFl-6t-q8w"/>
+                            <constraint firstItem="Vyr-5l-Yug" firstAttribute="bottom" secondItem="q9C-91-0zH" secondAttribute="bottom" constant="8" id="BLf-od-dQl"/>
+                            <constraint firstItem="Vyr-5l-Yug" firstAttribute="trailing" secondItem="Gk6-xd-eMR" secondAttribute="trailing" constant="8" id="JCD-ME-fKM"/>
+                            <constraint firstItem="uBZ-6Q-6Yk" firstAttribute="leading" secondItem="Vyr-5l-Yug" secondAttribute="leading" constant="8" id="NaC-jo-AJC"/>
+                            <constraint firstItem="LUr-D4-G5O" firstAttribute="top" secondItem="uBZ-6Q-6Yk" secondAttribute="bottom" constant="8" id="pMW-sZ-pgv"/>
+                            <constraint firstItem="Vyr-5l-Yug" firstAttribute="bottom" secondItem="LUr-D4-G5O" secondAttribute="bottom" constant="8" id="qX4-rQ-KgB"/>
+                            <constraint firstItem="q9C-91-0zH" firstAttribute="leading" secondItem="Vyr-5l-Yug" secondAttribute="leading" constant="8" id="s9N-xe-z3s"/>
+                            <constraint firstItem="Vyr-5l-Yug" firstAttribute="trailing" secondItem="LUr-D4-G5O" secondAttribute="trailing" constant="8" id="xPh-dy-UK9"/>
+                            <constraint firstItem="LUr-D4-G5O" firstAttribute="leading" secondItem="q9C-91-0zH" secondAttribute="trailing" constant="8" id="xSs-1g-hFP"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Shopping Cart" image="cart" catalog="system" id="HW7-ME-PKu"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gqH-LG-hAG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1573" y="-437"/>
+            <point key="canvasLocation" x="1571.7557251908397" y="-437.32394366197184"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="oYQ-Qj-bn4">
@@ -80,6 +119,9 @@
         <image name="tshirt" catalog="system" width="128" height="98"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
