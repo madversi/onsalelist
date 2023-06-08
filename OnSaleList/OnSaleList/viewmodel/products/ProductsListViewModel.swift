@@ -57,9 +57,12 @@ final class ProductsListViewModel {
             onSale: onSaleText,
             salePrice: salePriceText,
             availableSizes: availableSizesText,
-            addToCartAction: { }
+            addToCartAction: addToCart
         )
         return productCellViewModel
+    }
+    
+    private func addToCart() {
     }
     
     private func makeSizesString(from sizesArray: [Size]) -> String {

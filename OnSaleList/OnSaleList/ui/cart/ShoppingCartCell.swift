@@ -51,6 +51,7 @@ class ShoppingCartCell: UITableViewCell {
 }
 
 class ShoppingCartCellViewModel {
+    
     let image: URL?
     let name: String
     let price: String
