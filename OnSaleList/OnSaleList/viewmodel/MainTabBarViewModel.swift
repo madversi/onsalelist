@@ -14,11 +14,7 @@ final class MainTabBarViewModel {
     static let shared = MainTabBarViewModel()
     
     let cartPublisher = PassthroughSubject<[CartProduct], Never>()
-    var cartProducts: [CartProduct] = [] {
-        didSet {
-            notifyCartProductsUpdate()
-        }
-    }
+    private var cartProducts: [CartProduct] = []
     
     func addItemToCart(_ item: CartProduct) {
         guard !cartProducts.contains(item) else {
@@ -28,6 +24,7 @@ final class MainTabBarViewModel {
             return
         }
         cartProducts.append(item)
+        notifyCartProductsUpdate()
     }
     
     private func notifyCartProductsUpdate() {

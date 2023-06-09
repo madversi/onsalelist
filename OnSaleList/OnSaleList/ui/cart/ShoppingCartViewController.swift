@@ -30,6 +30,7 @@ class ShoppingCartViewController: UIViewController {
         observer = viewModel.productsInCartPublisher.sink { [weak self] products in
             self?.productsInChart = products
         }
+        viewModel.refreshCartData()
     }
     
 }

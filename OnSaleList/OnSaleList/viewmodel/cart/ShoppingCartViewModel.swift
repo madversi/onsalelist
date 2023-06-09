@@ -13,7 +13,7 @@ final class ShoppingCartViewModel {
     let productsInCartPublisher = PassthroughSubject<[CartProduct], Never>()
     private (set) var productsInCart: [CartProduct] = [] {
         didSet {
-            productsInCartPublisher.send(productsInCart)
+            refreshCartData()
         }
     }
     
@@ -35,8 +35,8 @@ final class ShoppingCartViewModel {
         return shoppingCartCellViewModel
     }
     
-    func remoteFromCart() {
-        
+    func refreshCartData() {
+        productsInCartPublisher.send(productsInCart)
     }
     
 }
