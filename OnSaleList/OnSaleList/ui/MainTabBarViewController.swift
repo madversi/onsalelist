@@ -8,10 +8,4 @@
 import UIKit
 
 class MainTabBarViewController: UITabBarController {
-    
-    override func viewDidLoad() {
-        MainTabBarViewModel.shared.products = []
-        MainTabBarViewModel.shared.productsInCart = []
-    }
-    
 }

@@ -11,7 +11,6 @@ final class MainTabBarViewModel {
     
     public var products = [ProductItem]()
     public var productsInCart = [ProductItem]()
-    
     static let shared = MainTabBarViewModel()
     
     private init() { }
