@@ -30,8 +30,13 @@ final class ShoppingCartViewModel {
             image: cartProduct.image,
             name: cartProduct.name,
             price: cartProduct.price,
-            quantity: cartProduct.quantity.description
+            quantity: cartProduct.quantity
         )
         return shoppingCartCellViewModel
     }
+    
+    func remoteFromCart() {
+        
+    }
+    
 }

@@ -27,6 +27,8 @@ class ShoppingCartCell: UITableViewCell {
         shoppingCartNameLabel.text = viewModel?.name
         shoppingCartPriceLabel.text = viewModel?.price
         shoppingCartQuantityLabelData.text = viewModel?.quantity
+        let isMinusButtonEnabled = viewModel?.enableMinusButton ?? true
+        shoppingCartMinusButton.isEnabled = isMinusButtonEnabled
     }
     
     // Will be moved to a proper location in the next PRs
@@ -56,12 +58,14 @@ class ShoppingCartCellViewModel {
     let name: String
     let price: String
     let quantity: String
+    let enableMinusButton: Bool
     
-    init(image: URL?, name: String, price: String, quantity: String) {
+    init(image: URL?, name: String, price: String, quantity: Int, enableMinusButton: Bool = true) {
         self.image = image
         self.name = name
         self.price = price
-        self.quantity = quantity
+        self.quantity = quantity > 0 ? quantity.description : ""
+        self.enableMinusButton = quantity > 0
     }
     
 }
