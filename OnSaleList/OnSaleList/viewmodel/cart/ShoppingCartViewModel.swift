@@ -10,8 +10,8 @@ import Foundation
 
 final class ShoppingCartViewModel {
     
-    let productsInCartPublisher = PassthroughSubject<[ProductItem], Never>()
-    private (set) var productsInCart: [ProductItem] = [] {
+    let productsInCartPublisher = PassthroughSubject<[CartProduct], Never>()
+    private (set) var productsInCart: [CartProduct] = [] {
         didSet {
             productsInCartPublisher.send(productsInCart)
         }
@@ -20,17 +20,17 @@ final class ShoppingCartViewModel {
     var mainTabBarProductsObserver: AnyCancellable?
     
     init() {
-        mainTabBarProductsObserver = MainTabBarViewModel.shared.productsInCartPublisher.sink(receiveValue: { [weak self] products in
+        mainTabBarProductsObserver = MainTabBarViewModel.shared.cartPublisher.sink(receiveValue: { [weak self] products in
             self?.productsInCart = products
         })
     }
     
-    func makeCellViewModel(with productItem: ProductItem) -> ShoppingCartCellViewModel {
+    func makeCellViewModel(with cartProduct: CartProduct) -> ShoppingCartCellViewModel {
         let shoppingCartCellViewModel = ShoppingCartCellViewModel(
-            image: productItem.imageURL,
-            name: productItem.name,
-            price: productItem.price,
-            quantity: "2"
+            image: cartProduct.image,
+            name: cartProduct.name,
+            price: cartProduct.price,
+            quantity: cartProduct.quantity.description
         )
         return shoppingCartCellViewModel
     }

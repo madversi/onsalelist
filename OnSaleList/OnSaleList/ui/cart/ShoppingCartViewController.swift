@@ -17,7 +17,7 @@ class ShoppingCartViewController: UIViewController {
         
     // MARK: - Properties
     private var viewModel = ShoppingCartViewModel()
-    private var productsInChart: [ProductItem] = [] {
+    private var productsInChart: [CartProduct] = [] {
         didSet { tableView.reloadData() }
     }
     private var observer: AnyCancellable?

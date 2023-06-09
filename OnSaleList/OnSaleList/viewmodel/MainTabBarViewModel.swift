@@ -10,14 +10,28 @@ import Foundation
 
 final class MainTabBarViewModel {
     
-    public var products = [ProductItem]()
+    var products = [ProductItem]()
     static let shared = MainTabBarViewModel()
     
-    let productsInCartPublisher = PassthroughSubject<[ProductItem], Never>()
-    var productsInCart: [ProductItem] = [] {
+    let cartPublisher = PassthroughSubject<[CartProduct], Never>()
+    var cartProducts: [CartProduct] = [] {
         didSet {
-            productsInCartPublisher.send(productsInCart)
+            notifyCartProductsUpdate()
         }
+    }
+    
+    func addItemToCart(_ item: CartProduct) {
+        guard !cartProducts.contains(item) else {
+            let elementIndex = cartProducts.firstIndex(of: item)!
+            cartProducts[elementIndex].quantity += 1
+            notifyCartProductsUpdate()
+            return
+        }
+        cartProducts.append(item)
+    }
+    
+    private func notifyCartProductsUpdate() {
+        cartPublisher.send(cartProducts)
     }
     
     private init() { }

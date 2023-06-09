@@ -61,14 +61,16 @@ final class ProductsListViewModel {
             salePrice: salePriceText,
             availableSizes: availableSizesText,
             addToCartAction: { [weak self] in
-                self?.addToCart(item: productItem)
+                self?.addToCart(product: productItem)
             }
         )
         return productCellViewModel
     }
     
-    private func addToCart(item: ProductItem) {
-        MainTabBarViewModel.shared.productsInCart.append(item)
+    private func addToCart(product: ProductItem) {
+        let instance = MainTabBarViewModel.shared
+        let newCartItem = CartProduct.makeCartItem(from: product)
+        instance.addItemToCart(newCartItem)
     }
     
     private func makeSizesString(from sizesArray: [Size]) -> String {
