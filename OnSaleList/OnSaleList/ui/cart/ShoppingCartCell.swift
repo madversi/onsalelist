@@ -31,7 +31,20 @@ class ShoppingCartCell: UITableViewCell {
         shoppingCartMinusButton.isEnabled = isMinusButtonEnabled
     }
     
-    // Will be moved to a proper location in the next PRs
+    // MARK: - Button actions
+    @IBAction func didTapMinusButton(_ sender: Any) {
+        viewModel?.removeAction()
+    }
+    
+    @IBAction func didTapPlusButton(_ sender: Any) {
+        viewModel?.addAction()
+    }
+    
+    @IBAction func didTapRemoveAllButton(_ sender: Any) {
+        viewModel?.removeAllAction()
+    }
+    
+    //TODO: Will be moved to a proper location in the next PRs
     private func setupImageView() {
         guard let url = viewModel?.image else {
             shoppingCartImageView.image = UIImage(named: "Placeholder")
@@ -59,13 +72,19 @@ class ShoppingCartCellViewModel {
     let price: String
     let quantity: String
     let enableMinusButton: Bool
+    var removeAction: () -> Void
+    var addAction: () -> Void
+    var removeAllAction: () -> Void
     
-    init(image: URL?, name: String, price: String, quantity: Int, enableMinusButton: Bool = true) {
+    init(image: URL?, name: String, price: String, quantity: Int, enableMinusButton: Bool = true, removeAction: @escaping () -> Void, addAction: @escaping () -> Void, removeAllAction: @escaping () -> Void) {
         self.image = image
         self.name = name
         self.price = price
         self.quantity = quantity > 0 ? quantity.description : ""
         self.enableMinusButton = quantity > 0
+        self.removeAction = removeAction
+        self.addAction = addAction
+        self.removeAllAction = removeAllAction
     }
     
 }

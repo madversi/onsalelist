@@ -27,6 +27,24 @@ final class MainTabBarViewModel {
         notifyCartProductsUpdate()
     }
     
+    func removeItemFromCart(_ item: CartProduct, shouldRemoveAll: Bool = false) {
+        guard cartProducts.contains(item),
+              let elementIndex = cartProducts.firstIndex(of: item) else {
+            notifyCartProductsUpdate()
+            return
+        }
+        
+        let quantity = cartProducts[elementIndex].quantity
+        
+        if quantity > 1 {
+            cartProducts[elementIndex].quantity -= 1
+        } else {
+            cartProducts.remove(at: elementIndex)
+        }
+        notifyCartProductsUpdate()
+        
+    }
+    
     private func notifyCartProductsUpdate() {
         cartPublisher.send(cartProducts)
     }
