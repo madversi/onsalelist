@@ -20,16 +20,22 @@ class ShoppingCartViewController: UIViewController {
     private var productsInChart: [CartProduct] = [] {
         didSet { tableView.reloadData() }
     }
-    private var observer: AnyCancellable?
+    private var itemsInCartObserver: AnyCancellable?
+    private var totalInCartObserver: AnyCancellable?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ShoppingCartCellView", bundle: nil), forCellReuseIdentifier: ShoppingCartCell.reuseIdentifier)
-        observer = viewModel.productsInCartPublisher.sink { [weak self] products in
+        itemsInCartObserver = viewModel.productsInCartPublisher.sink { [weak self] products in
             self?.productsInChart = products
         }
+        
+        totalInCartObserver = viewModel.cartTotalPublisher.sink(receiveValue: { [weak self] total in
+            self?.totalPrice.text = total
+        })
+        
         viewModel.refreshCartData()
     }
     

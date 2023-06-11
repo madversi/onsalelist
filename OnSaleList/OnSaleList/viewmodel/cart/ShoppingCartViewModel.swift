@@ -17,11 +17,20 @@ final class ShoppingCartViewModel {
         }
     }
     
+    let cartTotalPublisher = PassthroughSubject<String, Never>()
+    private (set) var totalInCart: String = ""
+    
     var mainTabBarProductsObserver: AnyCancellable?
+    var totalInCartObserver: AnyCancellable?
     
     init() {
         mainTabBarProductsObserver = MainTabBarViewModel.shared.cartPublisher.sink(receiveValue: { [weak self] products in
             self?.productsInCart = products
+        })
+        
+        totalInCartObserver = MainTabBarViewModel.shared.cartSumPublisher.sink(receiveValue: { [weak self] total in
+            self?.totalInCart = total
+            self?.updateTotalInCart()
         })
     }
     
@@ -46,6 +55,11 @@ final class ShoppingCartViewModel {
     
     func refreshCartData() {
         productsInCartPublisher.send(productsInCart)
+        cartTotalPublisher.send(totalInCart)
+    }
+    
+    private func updateTotalInCart() {
+        cartTotalPublisher.send(totalInCart)
     }
     
     private func removeFromCart(_ item: CartProduct, removeAll: Bool = false) {

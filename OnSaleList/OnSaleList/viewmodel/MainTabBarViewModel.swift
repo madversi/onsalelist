@@ -14,8 +14,18 @@ final class MainTabBarViewModel {
     static let shared = MainTabBarViewModel()
     
     let cartPublisher = PassthroughSubject<[CartProduct], Never>()
+    let cartSumPublisher = PassthroughSubject<String, Never>()
     
-    private var cartProducts: [CartProduct] = []
+    private var cartProducts: [CartProduct] = [] {
+        didSet {
+            getTotalCartItemsPrice()
+        }
+    }
+    private var cartTotalSum: String = "" {
+        didSet {
+            notifyCartTotalSumUpdated()
+        }
+    }
     
     func addItemToCart(_ item: CartProduct) {
         guard !cartProducts.contains(item) else {
@@ -49,10 +59,40 @@ final class MainTabBarViewModel {
             cartProducts.remove(at: elementIndex)
         }
         notifyCartProductsUpdate()
+    }
+    
+    private func getTotalCartItemsPrice() {
+        let moneyArray = cartProducts.map { item in
+            stringToMoney(item.price, quantity: item.quantity)
+        }.compactMap {$0}
         
+        let sum = moneyArray.reduce(0, +)
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        numberFormatter.locale = Locale(identifier: "pt_BR")
+        
+        cartTotalSum = numberFormatter.string(from: sum as NSNumber) ?? ""
+    }
+    
+    private func notifyCartTotalSumUpdated() {
+        cartSumPublisher.send(cartTotalSum)
+    }
+    
+    private func stringToMoney(_ string: String, quantity: Int) -> Decimal? {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        numberFormatter.locale = Locale(identifier: "pt_BR")
+        
+        guard let number = numberFormatter.number(from: string.replacingOccurrences(of: " ", with: "")) else {
+            return nil
+        }
+        
+        return number.decimalValue * Decimal(quantity)
     }
     
     private func notifyCartProductsUpdate() {
+        getTotalCartItemsPrice()
         cartPublisher.send(cartProducts)
     }
     
