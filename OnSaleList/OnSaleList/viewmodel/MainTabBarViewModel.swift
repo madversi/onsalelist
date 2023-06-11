@@ -14,6 +14,7 @@ final class MainTabBarViewModel {
     static let shared = MainTabBarViewModel()
     
     let cartPublisher = PassthroughSubject<[CartProduct], Never>()
+    
     private var cartProducts: [CartProduct] = []
     
     func addItemToCart(_ item: CartProduct) {
@@ -30,6 +31,12 @@ final class MainTabBarViewModel {
     func removeItemFromCart(_ item: CartProduct, shouldRemoveAll: Bool = false) {
         guard cartProducts.contains(item),
               let elementIndex = cartProducts.firstIndex(of: item) else {
+            notifyCartProductsUpdate()
+            return
+        }
+        
+        if shouldRemoveAll {
+            cartProducts.remove(at: elementIndex)
             notifyCartProductsUpdate()
             return
         }

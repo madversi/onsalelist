@@ -18,7 +18,6 @@ final class ShoppingCartViewModel {
     }
     
     var mainTabBarProductsObserver: AnyCancellable?
-    var currentCartProduct: CartProduct?
     
     init() {
         mainTabBarProductsObserver = MainTabBarViewModel.shared.cartPublisher.sink(receiveValue: { [weak self] products in
@@ -27,20 +26,19 @@ final class ShoppingCartViewModel {
     }
     
     func makeCellViewModel(with cartProduct: CartProduct) -> ShoppingCartCellViewModel {
-        currentCartProduct = cartProduct
         let shoppingCartCellViewModel = ShoppingCartCellViewModel(
             image: cartProduct.image,
             name: cartProduct.name,
             price: cartProduct.price,
             quantity: cartProduct.quantity,
             removeAction: { [weak self] in
-                self?.removeFromCart()
+                self?.removeFromCart(cartProduct)
             },
             addAction: { [weak self] in
-                self?.increaseQuantity()
+                self?.increaseQuantity(cartProduct)
             },
             removeAllAction: { [weak self] in
-                self?.removeAllFromCart()
+                self?.removeFromCart(cartProduct, removeAll: true)
             }
         )
         return shoppingCartCellViewModel
@@ -50,22 +48,11 @@ final class ShoppingCartViewModel {
         productsInCartPublisher.send(productsInCart)
     }
     
-    private func removeFromCart() {
-        if let item = currentCartProduct {
-            MainTabBarViewModel.shared.removeItemFromCart(item)
-        }
+    private func removeFromCart(_ item: CartProduct, removeAll: Bool = false) {
+        MainTabBarViewModel.shared.removeItemFromCart(item, shouldRemoveAll: removeAll)
     }
     
-    private func increaseQuantity() {
-        if let item = currentCartProduct {
-            MainTabBarViewModel.shared.addItemToCart(item)
-        }
+    private func increaseQuantity(_ item: CartProduct) {
+        MainTabBarViewModel.shared.addItemToCart(item)
     }
-    
-    private func removeAllFromCart() {
-        if let item = currentCartProduct {
-            MainTabBarViewModel.shared.removeItemFromCart(item, shouldRemoveAll: true)
-        }
-    }
-    
 }
