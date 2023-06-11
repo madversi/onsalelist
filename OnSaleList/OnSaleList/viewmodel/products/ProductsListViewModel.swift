@@ -17,7 +17,10 @@ final class ProductsListViewModel {
     private static let API_URL = "https://www.mocky.io/v2/59b6a65a0f0000e90471257d"
     private let remoteProductsLoader: RemoteProductsLoader
     
-    var productsList = [ProductItem]()
+    var productsList: [ProductItem] {
+        MainTabBarViewModel.shared.products
+    }
+
     weak var delegate: ProductsListViewModelDelegate?
     
     init() {
@@ -30,7 +33,7 @@ final class ProductsListViewModel {
         remoteProductsLoader.load { [weak self] result in
             switch result {
             case let .success(products):
-                self?.productsList = products
+                MainTabBarViewModel.shared.products = products
                 self?.delegate?.onFetchProductsSuccess()
             case let .failure(error):
                 self?.delegate?.onFetchProductsFailure(errorDescription: error.localizedDescription)
@@ -57,9 +60,17 @@ final class ProductsListViewModel {
             onSale: onSaleText,
             salePrice: salePriceText,
             availableSizes: availableSizesText,
-            addToCartAction: { }
+            addToCartAction: { [weak self] in
+                self?.addToCart(product: productItem)
+            }
         )
         return productCellViewModel
+    }
+    
+    private func addToCart(product: ProductItem) {
+        let instance = MainTabBarViewModel.shared
+        let newCartItem = CartProduct.makeCartItem(from: product)
+        instance.addItemToCart(newCartItem)
     }
     
     private func makeSizesString(from sizesArray: [Size]) -> String {
