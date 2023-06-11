@@ -46,10 +46,6 @@ extension ProductsListViewController: UITableViewDataSource {
 }
 
 extension ProductsListViewController: ProductsListViewModelDelegate {
-    func newItemAddedToCart() {
-        UIAlertController(title: "Success!", message: "Item added to cart!", preferredStyle: .alert).show(self, sender: nil)
-    }
-    
     func onFetchProductsSuccess() {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
